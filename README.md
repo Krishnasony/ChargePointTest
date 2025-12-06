@@ -150,22 +150,3 @@ Run tests with:
 ```bash
 ./gradlew test
 ```
-
-## Future Enhancements
-
-- [ ] Real-time charging status updates
-- [ ] Multiple scheduling algorithm comparison
-- [ ] Cost optimization (electricity pricing)
-- [ ] Battery health considerations
-- [ ] Charging curve modeling
-- [ ] Priority-based scheduling
-- [ ] Historical data and analytics
-- [ ] Export schedule to PDF/CSV
-
-## License
-
-Copyright 2025 ChargePoint Fleet Scheduler
-
-## Author
-
-Built with ❤️ using Clean Architecture principles and modern Android development practices.
