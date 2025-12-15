@@ -28,7 +28,11 @@ class InMemoryFleetDataSource @Inject constructor() : LocalFleetDataSource {
         Truck(id = "TRUCK-007", batteryCapacityKWh = 190.0, currentChargePercent = 25.0),
         Truck(id = "TRUCK-008", batteryCapacityKWh = 210.0, currentChargePercent = 35.0),
         Truck(id = "TRUCK-009", batteryCapacityKWh = 200.0, currentChargePercent = 45.0),
-        Truck(id = "TRUCK-010", batteryCapacityKWh = 200.0, currentChargePercent = 5.0)
+        Truck(id = "TRUCK-010", batteryCapacityKWh = 200.0, currentChargePercent = 5.0),
+        Truck(id = "TRUCK-011", batteryCapacityKWh = 200.0, currentChargePercent = 5.0),
+        Truck(id = "TRUCK-012", batteryCapacityKWh = 200.0, currentChargePercent = 5.0),
+        Truck(id = "TRUCK-013", batteryCapacityKWh = 200.0, currentChargePercent = 5.0),
+        Truck(id = "TRUCK-014", batteryCapacityKWh = 200.0, currentChargePercent = 5.0),
     )
 
     private val sampleChargers = listOf(

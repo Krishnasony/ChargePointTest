@@ -22,6 +22,8 @@ import javax.inject.Inject
  */
 class GreedyShortestJobFirstScheduler @Inject constructor() : ChargingScheduler {
 
+    private var maxTimeHorizon: Double = 0.0
+
     override suspend fun schedule(
         trucks: List<Truck>,
         chargers: List<Charger>,
@@ -48,8 +50,8 @@ class GreedyShortestJobFirstScheduler @Inject constructor() : ChargingScheduler 
                 fullyChargedTrucksCount = trucks.size,
                 totalTrucks = trucks.size,
                 timeHorizonHours = timeHorizonHours,
-                unassignedTrucks = emptyList()
-            )
+                unassignedTrucks = emptyList(),
+                )
         }
 
         // Step 1 & 2: Compute best time for each truck and filter by time horizon
@@ -57,11 +59,13 @@ class GreedyShortestJobFirstScheduler @Inject constructor() : ChargingScheduler 
             val bestTime = chargers.minOf { charger -> 
                 timeToFullChargeHours(truck, charger) 
             }
-            if (bestTime <= timeHorizonHours) {
-                TruckWithBestTime(truck, bestTime)
-            } else {
-                null
-            }
+//            if (bestTime <= timeHorizonHours) {
+//                TruckWithBestTime(truck, bestTime)
+//            } else {
+//                null
+//            }
+            maxTimeHorizon = maxOf(maxTimeHorizon, bestTime)
+            TruckWithBestTime(truck, bestTime)
         }
 
         // Step 3: Sort by best time ascending (shortest job first)
@@ -94,7 +98,7 @@ class GreedyShortestJobFirstScheduler @Inject constructor() : ChargingScheduler 
                 chargerUsage[charger.id] = scheduleAssignment.endTime
                 assignedTrucks.add(truck.id)
             } else {
-                unassignedTrucks.add(truck)
+                //unassignedTrucks.add(truck)
             }
         }
 
@@ -114,12 +118,15 @@ class GreedyShortestJobFirstScheduler @Inject constructor() : ChargingScheduler 
             )
         }
 
+        maxTimeHorizon = chargerSchedules.values.maxOf { it.totalScheduledTime }
+
         ScheduleResult(
             chargerSchedules = chargerSchedules,
             fullyChargedTrucksCount = assignedTrucks.size + alreadyChargedCount,
             totalTrucks = trucks.size,
             timeHorizonHours = timeHorizonHours,
-            unassignedTrucks = unassignedTrucks
+            unassignedTrucks = unassignedTrucks,
+            maxTimeHorizon = maxTimeHorizon,
         )
     }
 
@@ -143,7 +150,7 @@ class GreedyShortestJobFirstScheduler @Inject constructor() : ChargingScheduler 
             val endTime = currentUsage + timeToFull
 
             // Check if this charger can fit the truck within the time horizon
-            if (endTime <= timeHorizonHours && endTime < bestEndTime) {
+            if (endTime < bestEndTime) {
                 bestCharger = charger
                 bestEndTime = endTime
                 bestAssignment = ScheduleAssignment(

@@ -14,7 +14,8 @@ data class ScheduleResult(
     val fullyChargedTrucksCount: Int,
     val totalTrucks: Int,
     val timeHorizonHours: Int,
-    val unassignedTrucks: List<Truck>
+    val unassignedTrucks: List<Truck>,
+    val maxTimeHorizon: Double = 0.0,
 ) {
     init {
         require(fullyChargedTrucksCount >= 0) { "Fully charged trucks count must be non-negative" }

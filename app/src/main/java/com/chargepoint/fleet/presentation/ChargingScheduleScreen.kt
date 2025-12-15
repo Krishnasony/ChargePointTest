@@ -186,7 +186,7 @@ private fun SummaryCard(schedule: ScheduleResult) {
                 fontWeight = FontWeight.Bold
             )
             Divider(modifier = Modifier.padding(vertical = 4.dp))
-            
+            SummaryRow("Max Time Horizon", "${schedule.maxTimeHorizon} hours")
             SummaryRow("Time Horizon", "${schedule.timeHorizonHours} hours")
             SummaryRow("Total Trucks", schedule.totalTrucks.toString())
             SummaryRow("Fully Charged", schedule.fullyChargedTrucksCount.toString())
